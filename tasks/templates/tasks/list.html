@@ -1,0 +1,85 @@
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+<style>
+
+    h3{
+        text-align: center;
+        font-size: 32px;
+    }
+
+    body{
+        background-color: #638CBB;
+    }
+
+    input{
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+
+    input::placeholder {
+        color: #d3d3d3;
+    }
+
+    .submit{
+        background-color: #6BA3E8;
+    }
+
+    .center-column{
+        width:600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
+    }
+
+    .item-row{
+        background-color: #906abd;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 16px;
+        box-shadow: 0px -1px 10px -4px rgba(0,0,0,0.75);
+    }
+
+    .btn-danger{
+        background-color: #ffae19;
+        border-color: #e59400;
+    }
+   
+</style>
+
+
+<div class="center-column">
+
+    <h3>To Do</h3>
+
+    <form method="POST" action="/">
+        {% csrf_token %}
+        {{form.title}}
+        <input class="btn btn-info" type="submit" name="Create Task"> <!-- btn-info le blue button dinxa-->
+    </form>
+
+
+    <div class="todo-list">
+
+        {% for task in tasks %}
+            <div class="item-row">
+                    <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a> <!-- btn-sm small button dinxa-->
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a> <!-- btn-danger le red button dinxa tara overwrite garya CSS so yellow vayo-->
+
+                    {% if task.complete == True %}
+                    <strike>{{task}}</strike>        
+                    {% else %}
+                    <span>{{task}}</span>
+                    {% endif %}
+                </div>
+    {% endfor %}   
+
+</div>
+
+</div>
